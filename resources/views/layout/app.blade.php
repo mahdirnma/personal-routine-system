@@ -16,7 +16,7 @@
             <nav>
                 <ul class="flex flex-row-reverse">
                     <li class="w-44 h-full flex justify-center items-center font-mono text-balance"><a href="{{route('routines.index')}}">routines</a></li>
-{{--                    <li class="w-44 h-full flex justify-center items-center font-mono text-balance"><a href="{{route('periods.index')}}">periods</a></li>--}}
+                    <li class="w-44 h-full flex justify-center items-center font-mono text-balance"><a href="{{route('completed-intervals.index')}}">completed routines</a></li>
                 </ul>
             </nav>
         </div>

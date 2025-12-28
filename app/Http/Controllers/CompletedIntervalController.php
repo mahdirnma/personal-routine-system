@@ -13,7 +13,8 @@ class CompletedIntervalController extends Controller
      */
     public function index()
     {
-        //
+        $completedIntervals = CompletedInterval::where('date',date('Y-m-d'))->get();
+        return view('user.completed-intervals.index',compact('completedIntervals'));
     }
 
     /**

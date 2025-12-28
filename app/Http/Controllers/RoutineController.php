@@ -5,15 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Routine;
 use App\Http\Requests\StoreRoutineRequest;
 use App\Http\Requests\UpdateRoutineRequest;
+use Illuminate\Http\Request;
 
 class RoutineController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $routines = Routine::where('reminder_date', '=', date('Y-m-d'))->paginate(4);
+        $routines2 = Routine::where('reminder_date', '=', date('Y-m-d'))->get();
+        $routines=[];
+        if ($request->interval_type && $request->interval_type!='all'){
+            foreach ($routines2 as $routine){
+                if ($routine->interval->title==$request->interval_type){
+                    array_push($routines,$routine);
+                }
+            }
+        }else{
+            foreach ($routines2 as $routine){
+                array_push($routines,$routine);
+            }
+        }
         return view('user.routines.index', compact('routines'));
     }
 

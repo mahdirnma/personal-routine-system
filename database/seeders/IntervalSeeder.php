@@ -17,8 +17,6 @@ class IntervalSeeder extends Seeder
             'title' => 'interval 1',
             'start_date' => '2025-12-28',
             'end_date' => '2025-12-30',
-            'reminder_date' => '2025-12-28',
-            'reminder_time' => '17:00:00',
             'repeat' => true,
             'routine_id' => 1,
         ]);
@@ -26,8 +24,6 @@ class IntervalSeeder extends Seeder
             'title' => 'interval 2',
             'start_date' => '2025-12-20',
             'end_date' => '2025-12-29',
-            'reminder_date' => '2025-12-29',
-            'reminder_time' => '20:00:00',
             'repeat' => true,
             'routine_id' => 2,
         ]);

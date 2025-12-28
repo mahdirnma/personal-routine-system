@@ -10,8 +10,6 @@ class Interval extends Model
         'title',
         'start_date',
         'end_date',
-        'reminder_date',
-        'reminder_time',
         'repeat',
         'routine_id',
     ];

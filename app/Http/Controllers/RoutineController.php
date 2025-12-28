@@ -13,7 +13,8 @@ class RoutineController extends Controller
      */
     public function index()
     {
-        //
+        $routines = Routine::where('reminder_date', '=', date('Y-m-d'))->paginate(4);
+        return view('user.routines.index', compact('routines'));
     }
 
     /**

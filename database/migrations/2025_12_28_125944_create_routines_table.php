@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->date('publish_date');
 //            $table->date('deadline');
+            $table->date('reminder_date');
+            $table->time('reminder_time');
             $table->boolean('status');
             $table->foreignId('category_id');
             $table->foreignId('user_id');

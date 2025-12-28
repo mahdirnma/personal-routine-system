@@ -10,6 +10,8 @@ class Routine extends Model
         'title',
         'description',
         'publish_date',
+        'reminder_date',
+        'reminder_time',
         'status',
         'category_id',
         'user_id',

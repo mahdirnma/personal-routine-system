@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('intervals', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->date('reminder_date');
+            $table->time('reminder_time');
+            $table->boolean('repeat');
             $table->timestamps();
         });
     }

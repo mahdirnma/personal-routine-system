@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('routines', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('description');
+            $table->date('publish_date');
+//            $table->date('deadline');
+            $table->boolean('status');
+            $table->foreignId('category_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

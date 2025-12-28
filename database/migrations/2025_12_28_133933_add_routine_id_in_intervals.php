@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
+        Schema::table('intervals', function (Blueprint $table) {
+            $table->foreignId('routine_id');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::table('intervals', function (Blueprint $table) {
+            $table->dropForeign('intervals_routine_id_foreign');
+        });
     }
 };

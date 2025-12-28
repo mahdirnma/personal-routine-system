@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('completed_intervals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('interval_id');
+            $table->date('date');
             $table->timestamps();
         });
     }

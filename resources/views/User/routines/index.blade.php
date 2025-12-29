@@ -35,12 +35,12 @@
                     @foreach($routines as $routine)
                         <tr class="h-12 border border-gray-400 border-b-2 border-b-gray-400">
                             <td class="text-center">
-                                @if($routine->interval->completedIntervals)
+                                @if($routine->interval->completedIntervals->count()!=0)
                                     @foreach($routine->interval->completedIntervals as $row)
                                         {{$row->date==date('Y-m-d')?'done':'pending'}}
                                     @endforeach
                                 @else
-                                    {{'pending'}}
+                                    <a href="{{route('routine.status',compact('routine'))}}" class="text-red-700">pending</a>
                                 @endif
                             </td>
                             <td class="text-center">{{$routine->status?'done':'pending'}}</td>

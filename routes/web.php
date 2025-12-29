@@ -15,5 +15,6 @@ Route::middleware('auth')->group(function(){
     Route::get('/',[UserController::class,'dashboard'])->name('dashboard');
     Route::resource('routines', RoutineController::class);
     Route::resource('completed-intervals', CompletedIntervalController::class);
+    Route::get('/routine/{routine}/status',[RoutineController::class,'status'] )->name('routine.status');
     Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 });

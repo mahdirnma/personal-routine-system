@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\CompletedInterval;
 use App\Models\Interval;
 use App\Models\Routine;
 use App\Http\Requests\StoreRoutineRequest;
@@ -30,7 +31,8 @@ class RoutineController extends Controller
                 array_push($routines,$routine);
             }
         }
-        return view('user.routines.index', compact('routines'));
+        $completeIntervals=CompletedInterval::where('date', '=', date('Y-m-d'))->get();
+        return view('user.routines.index', compact('routines','completeIntervals'));
     }
 
     /**
@@ -85,6 +87,15 @@ class RoutineController extends Controller
     public function show(Routine $routine)
     {
         //
+    }
+    public function status(Routine $routine)
+    {
+        $interval=$routine->interval->id;
+        $status=CompletedInterval::create([
+            'interval_id'=>$interval,
+            'date'=>date('Y-m-d'),
+        ]);
+        return redirect()->route('routines.index')->with('success','Routine status updated successfully');
     }
 
     /**

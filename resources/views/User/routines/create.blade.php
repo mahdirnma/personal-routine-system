@@ -81,8 +81,8 @@
                         <div class="w-5/6 h-auto flex flex-row-reverse justify-between pt-4 mb-6">
                             <label for="repeat" class="font-semibold ml-5">: repeat</label>
                             <select name="repeat" id="repeat" class="w-2/5 h-8 rounded outline-0 px-2 border border-gray-400">
-                                <option value="1">true</option>
-                                <option value="0">false</option>
+                                <option value="true">true</option>
+                                <option value="false">false</option>
                             </select>
                             @error('repeat')
                             <p class="text-red-700">{{$message}}</p>

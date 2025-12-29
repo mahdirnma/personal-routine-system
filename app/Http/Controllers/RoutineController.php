@@ -60,7 +60,7 @@ class RoutineController extends Controller
         $repeat=$request->repeat;
         if ($repeat=='true'){
             $repeat=1;
-        }else{
+        }elseif ($repeat=='false'){
             $repeat=0;
         }
         $user=Auth::id();

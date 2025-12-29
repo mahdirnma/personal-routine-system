@@ -37,7 +37,11 @@
                             <td class="text-center">
                                 @if($routine->interval->completedIntervals->isNotEmpty())
                                     @foreach($routine->interval->completedIntervals as $row)
-                                        {{$row->date==date('Y-m-d')?'done':'pending'}}
+                                        @if($row->date==date('Y-m-d'))
+                                            done
+                                        @else
+                                            <a href="{{route('routine.status',compact('routine'))}}" class="text-red-700">pending</a>
+                                        @endif
                                     @endforeach
                                 @else
                                     <a href="{{route('routine.status',compact('routine'))}}" class="text-red-700">pending</a>

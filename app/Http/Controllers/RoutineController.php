@@ -8,6 +8,7 @@ use App\Models\Interval;
 use App\Models\Routine;
 use App\Http\Requests\StoreRoutineRequest;
 use App\Http\Requests\UpdateRoutineRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,7 @@ class RoutineController extends Controller
     {
         foreach (Routine::all() as $routine) {
             $interval=$routine->interval;
-            if ($interval->repeat==true && $routine->status==0 && date('Y-m-d')<$interval->end_date) {
+            if ($interval->repeat==true && $routine->status==0 && date('Y-m-d')<$interval->end_date && $interval->title=='daily') {
                 $routine->update(['reminder_date'=>date('Y-m-d')]);
             }
         }
@@ -101,10 +102,19 @@ class RoutineController extends Controller
         if ($routine->interval->repeat==false){
             $routine->update(['status'=>true]);
         }
+        if ($routine->interval->title=='daily' && $routine->interval->end_date==date('Y-m-d')){
+            $routine->update(['status'=>true]);
+        }
+        if ($routine->interval->title=='weekly' &&  $routine->interval->end_date<Carbon::today()->addDay(7)->format('Y-m-d')){
+            $routine->update(['status'=>true]);
+        }elseif ($routine->interval->title=='weekly' && $routine->interval->end_date>=Carbon::today()->addDay(7)->format('Y-m-d')){
+            $routine->update(['reminder_date'=>Carbon::today()->addDay(7)->format('Y-m-d')]);
+        }
         $status=CompletedInterval::create([
             'interval_id'=>$interval,
             'date'=>date('Y-m-d'),
         ]);
+
         return redirect()->route('routines.index')->with('success','Routine status updated successfully');
     }
 

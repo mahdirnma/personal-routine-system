@@ -35,7 +35,7 @@
                     @foreach($routines as $routine)
                         <tr class="h-12 border border-gray-400 border-b-2 border-b-gray-400">
                             <td class="text-center">
-                                @if($routine->interval->completedIntervals->count()!=0)
+                                @if($routine->interval->completedIntervals->isNotEmpty())
                                     @foreach($routine->interval->completedIntervals as $row)
                                         {{$row->date==date('Y-m-d')?'done':'pending'}}
                                     @endforeach

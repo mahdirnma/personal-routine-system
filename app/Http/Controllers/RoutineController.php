@@ -18,6 +18,13 @@ class RoutineController extends Controller
      */
     public function index(Request $request)
     {
+        foreach (Routine::all() as $routine) {
+            $interval=$routine->interval;
+            if ($interval->repeat==true && $routine->status==0 && date('Y-m-d')<$interval->end_date) {
+                $routine->update(['reminder_date'=>date('Y-m-d')]);
+            }
+        }
+
         $routines2 = Routine::where('reminder_date', '=', date('Y-m-d'))->get();
         $routines=[];
         if ($request->interval_type && $request->interval_type!='all'){
@@ -91,6 +98,9 @@ class RoutineController extends Controller
     public function status(Routine $routine)
     {
         $interval=$routine->interval->id;
+        if ($routine->interval->repeat==false){
+            $routine->update(['status'=>true]);
+        }
         $status=CompletedInterval::create([
             'interval_id'=>$interval,
             'date'=>date('Y-m-d'),

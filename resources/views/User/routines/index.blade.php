@@ -35,9 +35,13 @@
                     @foreach($routines as $routine)
                         <tr class="h-12 border border-gray-400 border-b-2 border-b-gray-400">
                             <td class="text-center">
-                                @foreach($routine->interval->completedIntervals as $row)
-                                    {{$row->date==date('Y-m-d')?'done':'pending'}}
-                                @endforeach
+                                @if($routine->interval->completedIntervals)
+                                    @foreach($routine->interval->completedIntervals as $row)
+                                        {{$row->date==date('Y-m-d')?'done':'pending'}}
+                                    @endforeach
+                                @else
+                                    {{'pending'}}
+                                @endif
                             </td>
                             <td class="text-center">{{$routine->status?'done':'pending'}}</td>
                             <td class="text-center">{{$routine->category->title}}</td>

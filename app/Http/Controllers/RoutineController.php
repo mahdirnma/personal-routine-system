@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Interval;
 use App\Models\Routine;
 use App\Http\Requests\StoreRoutineRequest;
 use App\Http\Requests\UpdateRoutineRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoutineController extends Controller
 {
@@ -35,7 +38,8 @@ class RoutineController extends Controller
      */
     public function create()
     {
-        //
+        $categories=Category::where('is_active',1)->get();
+        return view('user.routines.create', compact('categories'));
     }
 
     /**
@@ -43,7 +47,36 @@ class RoutineController extends Controller
      */
     public function store(StoreRoutineRequest $request)
     {
-        //
+        $repeat=$request->repeat;
+        if ($repeat=='true'){
+            $repeat=1;
+        }else{
+            $repeat=0;
+        }
+        $user=Auth::id();
+        $routine=Routine::create([
+            'title'=>$request->title,
+            'description'=>$request->description,
+            'publish_date'=>date('Y-m-d'),
+            'category_id'=>$request->category_id,
+            'status'=>false,
+            'reminder_date'=>$request->reminder_date,
+            'reminder_time'=>$request->reminder_time,
+            'user_id'=>$user
+        ]);
+        if ($routine){
+            $interval=Interval::create([
+                'title'=>$request->routine_type,
+                'start_date'=>$request->start_date,
+                'end_date'=>$request->end_date,
+                'repeat'=>$repeat,
+                'routine_id'=>$routine->id,
+            ]);
+        }
+        if ($interval){
+            return redirect()->route('routines.index')->with('success','Routine added successfully');
+        }
+        return redirect()->back()->with('error','Something went wrong');
     }
 
     /**

@@ -11,7 +11,7 @@ class StoreRoutineRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class StoreRoutineRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required',
+            'description' => 'required',
+            'routine_type' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'reminder_time' => 'required',
+            'reminder_date' => 'required',
+            'category_id' => 'required',
+            'repeat'=>'required'
         ];
     }
 }
